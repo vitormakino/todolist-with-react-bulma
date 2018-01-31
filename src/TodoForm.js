@@ -1,23 +1,23 @@
 import React from 'react';
+import { Control, Input, Panel } from 'reactbulma';
 
 export default class TodoForm extends React.Component {
-    onBlur() {
-        if(this.textInput.value) {
-            this.props.addTodo(this.textInput.value);
-            this.textInput.focus();
-            this.textInput.value = "";
+
+    handleBlur(event) {
+        if(event.target.value) {
+            this.props.addTodo(event.target.value);
+            event.target.focus();
+            event.target.value = "";
         }
     }
     
     render() {
         return (
-          <div className="panel-block"> 
-            <div className="control">
-              <input className="input" type="text"
-                     ref={(input) => { this.textInput = input; }} 
-                     placeholder="What needs to be done?" onBlur={() => this.onBlur() } />
-            </div>
-          </div>  
+          <Panel.Block> 
+            <Control>
+              <Input placeholder="What needs to be done?" onBlur={this.handleBlur.bind(this)} />
+            </Control>
+          </Panel.Block>  
         );
     }
 }

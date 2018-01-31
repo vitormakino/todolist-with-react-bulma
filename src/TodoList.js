@@ -12,10 +12,6 @@ export default class TodoList extends React.Component {
                           value={todo} />
           )
         });
-        return (
-          <ul>
-            {listItems}
-          </ul>
-        );
+        return listItems;
     }
 }

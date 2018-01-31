@@ -1,0 +1,7 @@
+.todo-completed {
+  text-decoration-line: line-through
+}
+  
+.todo-item {
+  width: 100%
+}

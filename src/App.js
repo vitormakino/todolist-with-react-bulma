@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Box, Button, Container, Hero, Panel } from 'reactbulma';
 
 import './App.css';
 import TodoForm from './TodoForm';
@@ -28,9 +29,7 @@ class App extends Component {
 
   removeTodo(id) {
     // Filter all todos except the one to be removed
-    const remainder = this.state.data.filter((todo) => {
-      if(todo.id !== id) return todo;
-    });
+    const remainder = this.state.data.filter((todo) => todo.id !== id);
     // Update state with filter
     this.setState({data: remainder});
   }
@@ -40,39 +39,42 @@ class App extends Component {
   }
 
   toggleTodo(id) {
-    this.state.data
-        .filter(t => t.id === id)
-        .forEach(todo => {
-          todo.completed = !todo.completed;
-        });
+    const todos = this.state.data.slice();
+    
+    todos.forEach((todo,index,arr) => {
+      if(todo.id === id) {
+        arr[index] = Object.assign({}, todo, {completed: !todo.completed});
+      }          
+    });
+
+    this.setState({data: todos});    
   }
 
   render() {
     return (
-      <section className="hero is-fullheight is-primary is-bold">
-
-      <div className="hero-body">
-        <div className="container">
-          <div className="box">
-            <nav className="panel">
-              <p className="panel-heading">
-                List of Todos
-              </p>
-              <TodoForm addTodo={this.addTodo.bind(this)}/>
-              <TodoList removeTodo={this.removeTodo.bind(this)}
-                        toggleTodo={this.toggleTodo.bind(this)}
-                        data={this.state.data}/>
-              <div className="panel-block">
-                <button className="button is-link is-outlined is-fullwidth"
-                        onClick={() => this.removeAll()}>
-                  Clear all
-                </button>
-              </div>
-            </nav>
-          </div>
-        </div>
-      </div>
-      </section>
+      <Hero fullheight primary bold>
+        <Hero.Body>
+          <Container>
+            <Box>
+              <Panel>
+                <Panel.Heading>
+                  List of Todos
+                </Panel.Heading>
+                <TodoForm addTodo={this.addTodo.bind(this)}/>
+                <TodoList removeTodo={this.removeTodo.bind(this)}
+                          toggleTodo={this.toggleTodo.bind(this)}
+                          data={this.state.data}/>
+                <Panel.Block>
+                  <Button link outlined fullwidth
+                          onClick={() => this.removeAll()}>
+                    Clear all
+                  </Button>
+                </Panel.Block>
+              </Panel>
+            </Box>
+          </Container>
+        </Hero.Body>
+      </Hero>
     );
   }
 }
