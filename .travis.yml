@@ -1,0 +1,7 @@
+language: node_js
+
+node_js:
+   - node # will use latest node
+
+script: # the build step
+   - yarn build
