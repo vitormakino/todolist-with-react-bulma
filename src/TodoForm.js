@@ -12,7 +12,7 @@ export default class TodoForm extends React.Component {
     }
     
     handleKeyPress(event) {
-        if(event.key == 'Enter' && event.target.value) {
+        if(event.key === 'Enter' && event.target.value) {
             this.props.addTodo(event.target.value);
             event.target.focus();
             event.target.value = "";
